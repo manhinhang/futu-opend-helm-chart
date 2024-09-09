@@ -8,6 +8,8 @@ openssl genrsa -out futu.pem 1024
 
 # Install
 
+## Use custom values.yaml
+
 myValue.yaml
 
 ```yaml
@@ -20,6 +22,12 @@ futuopend:
 
 ```bash
 helm upgrade --install  futu-opend . -f myValue.yaml
+```
+
+## Use inline config
+
+```bash
+helm upgrade --install  futu-opend . --set secrets.futu-account-id=123456 --set secrets.futu-account-pwd=123456 --set futuopend.rsaFile=futu.pem
 ```
 
 # Test

@@ -16,7 +16,7 @@ spec:
         - '-w'
         - '3'
       args: 
-        - '{{ include "futu-opend.fullname" . }}'
+        - '{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local'
         - '{{ .Values.service.port }}'
 
   restartPolicy: Never

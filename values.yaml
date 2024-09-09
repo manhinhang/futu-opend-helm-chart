@@ -6,7 +6,7 @@ secrets:
   futu-account-id: 123456
   futu-account-pwd: 123456
 
-futu-opend:
+futuOpenD:
   rsaFile: futu.pem
 
 image:
@@ -62,13 +62,12 @@ resources: {}
   #   memory: 128Mi
 
 livenessProbe:
-  httpGet:
-    path: /
-    port: http
+  initialDelaySeconds: 600
+  periodSeconds: 10
+
 readinessProbe:
-  httpGet:
-    path: /
-    port: http
+  initialDelaySeconds: 600
+  periodSeconds: 10
 
 nodeSelector: {}
 
