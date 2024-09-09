@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "futu-opend.fullname" . }}-test-connection"
+  labels:
+    {{- include "futu-opend.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: netcat
+      image: busybox
+      command: 
+        - 'nc'
+        - '-zv'
+        - '-w'
+        - '3'
+      args: 
+        - '{{ include "futu-opend.fullname" . }}'
+        - '{{ .Values.service.port }}'
+
+  restartPolicy: Never

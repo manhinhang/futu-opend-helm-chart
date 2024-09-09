@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "futu-opend.fullname" . }}
+  labels:
+    {{- include "futu-opend.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "futu-opend.selectorLabels" . | nindent 6 }}
+  # strategy:
+  #   type: Recreate
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "futu-opend.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "futu-opend.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: '{{ include "futu-opend.fullname" . }}'
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          
+          stdin: true
+          tty: true
+          env:
+            - name: FUTU_ACCOUNT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "futu-opend.fullname" . }}-credentials
+                  key: futu-account-id
+            - name: FUTU_ACCOUNT_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "futu-opend.fullname" . }}-credentials
+                  key: futu-account-pwd
+            - name: FUTU_OPEND_IP
+              value: 0.0.0.0
+            - name: FUTU_OPEND_PORT
+              value: "{{ .Values.service.port }}"
+          ports:
+            - name: opend
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: futu-opend-rsa
+              mountPath: /.futu
+              readOnly: true
+      
+        # - name: socat-sidecar
+        #   image: alpine/socat
+        #   args: 
+        #     - "tcp-listen:1234,fork"
+        #     - "tcp-connect:localhost:{{ .Values.service.port }},forever"
+        #   ports:
+        #     - containerPort: 1234
+      volumes:
+        - name: futu-opend-rsa
+          secret:
+            secretName: {{ include "futu-opend.fullname" . }}-rsa
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
