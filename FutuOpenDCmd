@@ -1,5 +1,0 @@
-#!/bin/expect
-
-spawn kubectl attach $env(POD_NAME) -c $env(CONTAINER_NAME) -i -t
-send -- "$argv\r"
-expect eof

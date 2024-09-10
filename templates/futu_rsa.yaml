@@ -1,9 +1,0 @@
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "futu-opend.fullname" . }}-rsa
-type: Opaque
-data:
-  futu.pem: |
-    {{ .Files.Get .Values.futuOpenD.rsaFile | b64enc }}
