@@ -1,5 +1,22 @@
 # futu-opend
 
+
+## Usage
+
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
+
+```bash
+helm repo add ib-gateway https://manhinhang.github.io/futu-opend-helm-chart/
+```
+
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages.  You can then run `helm search repo
+ib-gateway` to see the charts.
+
+
 ## 1. Create RSA key
 
 ```bash
@@ -16,18 +33,18 @@ myValue.yaml
 secrets:
   futu-account-id: "123456"
   futu-account-pwd: 123456
-futuopend:
-  rsaFile: futu.pem # futu.pem is the path of the RSA key
+futuOpenD:
+  rsaFile: rsa string # futu.pem is content of the RSA key
 ```
 
 ```bash
-helm upgrade --install  futu-opend . -f myValue.yaml
+helm upgrade --install  futu-opend futu-opend/futu-opend -f myValue.yaml
 ```
 
 ## Use inline config
 
 ```bash
-helm upgrade --install  futu-opend . --set secrets.futu-account-id=123456 --set secrets.futu-account-pwd=123456 --set futuopend.rsaFile=futu.pem
+helm upgrade --install  futu-opend futu-opend/futu-opend --set secrets.futu-account-id=123456 --set secrets.futu-account-pwd=123456 --set futuopend.rsaFile=futu.pem
 ```
 
 # Test

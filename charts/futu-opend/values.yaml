@@ -7,7 +7,7 @@ secrets:
   futu-account-pwd: 123456
 
 futuOpenD:
-  rsaFile: futu.pem
+  rsaFile: 
 
 image:
   repository: manhinhang/futu-opend-docker

@@ -6,4 +6,4 @@ metadata:
 type: Opaque
 data:
   futu.pem: |
-    {{ .Files.Get .Values.futuOpenD.rsaFile | b64enc }}
+    {{ .Values.futuOpenD.rsaFile | b64enc }}
