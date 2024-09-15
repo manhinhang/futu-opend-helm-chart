@@ -3,6 +3,16 @@ entries:
   futu-opend:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-09-15T04:30:21.814906248Z"
+    description: A Helm chart for Kubernetes
+    digest: 91ee717d39e08a6d895a7c965f8e4d48e6fa6509c61350e958cfa6d8b25f8129
+    name: futu-opend
+    type: application
+    urls:
+    - https://github.com/manhinhang/futu-opend-helm-chart/releases/download/futu-opend-0.1.1/futu-opend-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-09-10T16:40:27.678532309Z"
     description: A Helm chart for Kubernetes
     digest: eefc43dd55ff9a6af45c323e205410764bcc2f359e892d970660b0409259f6b3
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/manhinhang/futu-opend-helm-chart/releases/download/futu-opend-0.1.0/futu-opend-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-10T16:40:27.678577503Z"
+generated: "2024-09-15T04:30:21.814918801Z"
